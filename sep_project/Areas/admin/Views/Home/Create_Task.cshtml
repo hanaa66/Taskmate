@@ -1,0 +1,44 @@
+﻿
+
+@{
+    ViewData["Title"] = "create new task";
+}
+
+@model sep_project.Models.Task
+<h2 style="color:#2C3E50">Create Task</h2>
+
+
+    <form asp-action="Create_Task" method="post">
+        <div class="form-group">
+            <label asp-for="Title"></label>
+            <input asp-for="Title" class="form-control" />
+        </div>
+        <br />
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+        </div>
+        <br />
+
+        <div class="form-group">
+            <label asp-for="Deadline"></label>
+            <input asp-for="Deadline" type="date" class="form-control" />
+        </div>
+
+        <br />
+
+        <div class="form-group form-check">
+            <input asp-for="IsCompleted" class="form-check-input" />
+            <label asp-for="IsCompleted" class="form-check-label"></label>
+        </div>
+        <br />
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

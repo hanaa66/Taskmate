@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+<hr />
+
+<h1 style="color:#2C3E50;margin:20px">Login</h1>
+<br />
+@model LoginAccount
+<form asp-action="login" asp-controller="user" role="form" enctype="multipart/form-data" method="post" style="margin:20px">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="m" asp-for="Email">user email</label>
+        <br />
+        <br />
+        <input asp-for="Email" type="text" class="form-control" id="m" placeholder="enter your email">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <label for="f" asp-for="Password">your password</label>
+        <br />
+        <br />
+        <input asp-for="Password" type="password" class="form-control" id="f" placeholder="enter your psw">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+
+    <br />
+    <button class="btn btn-primary">Login</button>
+    <a asp-action="Regester" asp-controller="user" class="btn btn-secondary">Regester</a>
+</form>

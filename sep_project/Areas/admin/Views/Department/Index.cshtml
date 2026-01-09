@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Department";
+}
+
+@model IEnumerable<Department>
+<br />
+<br />
+<button class="btn btn-info" data-bs-target="#add_department_modal" data-bs-toggle="modal">Add New Department</button>
+<table class="table table-hover">
+    <thead>
+        <tr>
+
+       
+            <th>#</th>
+           <th> Department Name</th>
+            <th colspan="2">Operation</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int counter = 1;
+        }
+        @foreach (var data in Model)
+        {
+            <tr>
+                <td>@counter</td>
+             <td>@data.Department_Name</td>
+                <td><a class="btn btn-outline-primary" asp-route-id="@data.Department_Id" asp-action="Edit" asp-controller="Department">Edit</a></td>
+                <td><a class="btn btn-outline-danger" asp-route-id="@data.Department_Id" asp-action="Delete" asp-controller="Department">Delete</a></td>
+            </tr>
+            counter++;
+        }
+       
+    </tbody>
+ 
+</table>
+
+<!-- Add Department Modal -->
+<div class="modal fade" id="add_department_modal" tabindex="-1" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+         <form asp-action="Create" asp-controller="Department" method="post">
+@Html.AntiForgeryToken()
+
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Department</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3>
+                        <label for="Department_Name" class="form-label">Department Name</label>
+                        <input id="Department_Name" class="form-control" name="department_name" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save Department</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+
+{
+  <script>
+      document.addEventListener("DOMContentLoaded", function () 
+      {
+            var showSuccess ='@TempData["showSuccess"]';
+              var showError = '@TempData["showError"]';
+              if (showSuccess === 'True')
+              {
+                  alert('Department added successfully!');
+              }
+              if(shoeError&&showError!=='null' && showError!=='')
+               {
+                  alert('Error adding department: ' + showError);
+                }
+      });
+    </script>
+  
+        
+}

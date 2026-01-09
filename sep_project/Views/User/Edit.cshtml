@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "add roles ";
+
+}
+@model UserRolesViewModel
+<div style="margin:20px">
+<h3 style="color:#2C3E50">@Model.Email</h3>
+<form asp-action="edit" asp-controller="user">
+    <input type="hidden" asp-for="UserId" />
+    <input type="hidden" asp-for="Email" />
+
+    <ul>
+        @foreach (var data in Model.Roles)
+        {
+            <li>
+            <input type="checkbox" name="Roles[@Model.Roles.IndexOf(data)].IsSelected"
+             value="true" @(data.IsSelected ? "checked" : "" ) />
+             <label>@data.RoleName</label>
+            <input type="hidden" name="Roles[@Model.Roles.IndexOf(data)].RoleName"
+            value="@data.RoleName" />
+            </li>
+        }
+    </ul>
+    <button type="submit" class="btn btn-info">save</button>
+</form>
+</div>

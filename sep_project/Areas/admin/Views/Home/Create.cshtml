@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["title"] = "add employee";
+}
+
+@model Employee
+
+<br />
+<h2>Add New Employee</h2>
+
+<form asp-controller="Home" asp-action="Create" method="post" enctype="mulipart/form-data" role="form" >
+  <div class="form-group">
+    <label for="formGroupExampleInput" asp-for="Employee_Name">Employee Name</label>
+    <br />
+    <br />
+    <input asp-for="Employee_Name" type="text" class="form-control" id="formGroupExampleInput" placeholder="enter your name">
+        <span asp-validation-for="Employee_Name" class="text-danger"></span>    
+  </div>
+
+  <br />
+    <div class="form-group">
+        <label for="f" asp-for="Employee_Email">Employee Email</label>
+        <br />
+        <br />
+        <input asp-for="Employee_Email" type="email" class="form-control" id="f" placeholder="enter your email">
+        <span asp-validation-for="Employee_Email" class="text-danger"></span>
+    </div>
+
+
+    <br />
+    <div class="form-group">
+        <label for="n" asp-for="Employee_Salary">Employee Salary</label>
+        <br />
+        <br />
+        <input asp-for="Employee_Salary" type="number" class="form-control" id="n" placeholder="enter your salary">
+        <span asp-validation-for="Employee_Salary" class="text-danger"></span>
+    </div>
+
+
+
+    <br />
+    <div class="form-group">
+        <label for="m" asp-for="Employee_Country">Employee Country</label>
+        <br />
+        <br />
+        <input asp-for="Employee_Country" type="text" class="form-control" id="m" placeholder="enter your country">
+        <span asp-validation-for="Employee_Country" class="text-danger"></span>
+    </div>
+
+    <br />
+    <br />
+
+
+    <select class="form-select" asp-for="Department_Id" asp-items="ViewBag.depr" aria-label="Default select example">
+        <option disabled selected>select your department</option>
+   </select>
+@* 
+   <div class="mb-3">
+       <label asp-for="Image_Name">Upload an image
+       </label>
+       <input asp-for="Image_Name" name="File" type="file" />
+   </div> *@
+
+  <br />
+    <button class="btn btn-success">Add</button>
+  </form>

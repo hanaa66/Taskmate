@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Regester";
+}
+
+@model UserAccount
+<hr />
+<h1 style="color:#2C3E50;margin:20px" >Create New User</h1>
+
+
+<form asp-action="regester" style="margin:20px">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="m" asp-for="User_Email">User Email</label>
+        <br />
+        <br />
+        <input asp-for="User_Email" type="text" class="form-control" id="m" placeholder="Enter Your Email">
+        <span asp-validation-for="User_Email" class="text-danger"></span>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <label for="f" asp-for="Password">Password</label>
+        <br />
+        <br />
+        <input asp-for="Password" type="password" class="form-control" id="f" placeholder="Enter Your PSW">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+
+    <br />
+    <div class="form-group">
+        <label for="n" asp-for="Confirm_Password">Confirm Password</label>
+        <br />
+        <br />
+        <input asp-for="Confirm_Password" type="password" class="form-control" id="n" placeholder="Enter Your PSW Again">
+        <span asp-validation-for="Confirm_Password" class="text-danger"></span>
+    </div>
+    <br />
+    <button class="btn btn-primary">regester</button>
+</form>

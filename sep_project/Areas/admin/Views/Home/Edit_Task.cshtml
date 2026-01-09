@@ -1,0 +1,38 @@
+﻿@model sep_project.Models.Task
+
+<h2 style="color:#2C3E50">Edit Task</h2>
+
+<form asp-action="Edit_task" method="post">
+    <input type="hidden" asp-for="Task_Id" />
+    <br />
+
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+    <br />
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="Deadline"></label>
+        <input asp-for="Deadline" type="date" class="form-control" />
+    </div>
+    <br />
+    @* <div class="form-check">
+        <input asp-for="IsCompleted" class="form-check-input" />
+        <label asp-for="IsCompleted" class="form-check-label"></label>
+    </div> *@
+    <br />
+
+    <button type="submit" class="btn btn-success mt-2">Save</button>
+</form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

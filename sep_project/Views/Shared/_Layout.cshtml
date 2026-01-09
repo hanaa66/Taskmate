@@ -1,0 +1,211 @@
+﻿@* @using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager *@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"]-TASKmate</title>
+    <link rel="stylesheet" href="~/admin/css/style.css">
+    <style>
+        .container row col-9 site-nav sf-menu templateux-menu d-none d-md-block a:hover {
+            color: #9E7914;
+            text-decoration:none;
+
+    </style>
+    <style>
+    body {
+        padding-top: 120px; 
+    }
+</style>
+</head>
+<body>
+
+
+    <div class="js-animsition animsition" id="site-wrap" data-animsition-in-class="fade-in" data-animsition-out-class="fade-out">
+
+        
+      
+        <header class="templateux-navbar" role="banner"
+                style="
+        display: flex;
+        justify-content:space-between;
+        align-items: end;
+        background-color: #606B85;
+        color: #c23616;
+        padding: 20px;
+        margin:0px;
+        border-bottom: 10px solid white;
+        position:fixed;
+        width: 100%;
+        left:0px;
+        z-index: 2000;
+        top: 0;
+
+ 
+    ">
+        
+
+            <div class="container" data-aos="fade-down" >
+                
+           
+                <div class="row">
+
+                    <div class="col-3 templateux-logo">
+                        <a href="/home/index" class="animsition-link"><h1 style="color:white">Task<strong style="color:#F5C679">M</strong>ate</h1></a>
+                    </div>
+                    <nav class="col-9 site-nav" style="justify-content:space-between">
+                        <button class="d-block d-md-none hamburger hamburger--spin templateux-toggle templateux-toggle-light ml-auto templateux-toggle-menu" data-toggle="collapse" data-target="#mobile-menu" aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button> <!-- .templateux-toggle -->
+
+                        <ul class="sf-menu templateux-menu d-none d-md-block">
+                            <li class="active">
+                                <a href="/home/index" class="animsition-link">Home</a>
+                            </li>
+                           <li><a asp-area="admin" asp-action="task" asp-controller="home" class="animsition-link">Tasks</a></li>
+                            <li><a asp-area="admin" asp-action="about" asp-controller="home" class="animsition-link">About</a></li>
+                          
+                           
+                       
+                            <li>
+                                @if(SignInManager.IsSignedIn(User))
+                                {
+                                  
+                                <li class="nav-item">
+                                    <a asp-controller="user" asp-action="Logout">Logout</a>
+                                </li>
+                                var info = await UserManager.GetUserAsync(User);
+                                   <span class="text-warning">@info?.Email.Split('@')[0]</span>
+                               
+                                }
+
+                            else
+                            {
+                                
+                                <li class="nav-item">
+                                <li><a asp-action="login" asp-controller="user" class="animsition-link">Login</a></li>
+                                </li>
+
+
+                            }
+                            </li>
+                   
+                        </ul> <!-- .templateux-menu -->
+
+                    </nav> <!-- .site-nav -->
+
+
+                </div> <!-- .row -->
+            </div> <!-- .container -->
+        </header> <!-- .templateux-navba -->
+        @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Home" &&
+                  ViewContext.RouteData.Values["action"]?.ToString() == "Index")
+        {
+            <div class="templateux-cover" style="background-image: url('@Url.Content("~/admin/images/6870715bdc4a5627c3d4bbcd_68705508edf76d8b388c62ce-1752199106504.jpeg")');position: relative; z-index: 1;">
+
+            <div class="container" style="position: relative; z-index: 10;">
+                <div class="row align-items-lg-center">
+
+                    <div class="col-lg-6 order-lg-1">
+                        <h1 class="heading mb-3 text-white" data-aos="fade-up">Simplify Your Workflow with <strong style="color:#F5C679">TaskMate</strong></h1>
+                        <p class="lead mb-5 text-white" data-aos="fade-up" data-aos-delay="100">TaskMate helps you organize your tasks, set priorities, and stay focused — so you can get more done every day, your way.</p>
+                        <p data-aos="fade-up" data-aos-delay="200"><a asp-controller="user" asp-action="regester" class="btn btn-primary py-3 px-4 mr-3">SignUp</a> </p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div> <!-- .templateux-cover -->
+        }
+@RenderBody();
+
+
+    <footer class="templateux-footer bg-light">
+        <div class="container">
+
+            <div class="row mb-5">
+                <div class="col-md-4 pr-md-5">
+                    <div class="block-footer-widget">
+                            <h3>TaskMate</h3>
+                            <p>Your personal space to organize, focus, and get things done.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="block-footer-widget">
+                                <h3>Learn More</h3>
+                                <ul class="list-unstyled">
+                                        <li><a asp-area="admin" asp-action="about" asp-controller="home">About</a></li>
+                                        <li><a href="#">Features</a></li>
+                                        <li><a href="#">Contact</a></li>
+                                        <li><a href="#">Privacy Policy</a></li>
+                                 
+                                </ul>
+                            </div>
+                        </div>
+                       @*  <div class="col-md-3">
+                            <div class="block-footer-widget">
+                                <h3>Support</h3>
+                                <ul class="list-unstyled">
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="#">Contact Us</a></li>
+                                    <li><a href="#">Help Desk</a></li>
+                                    <li><a href="#">Knowledgebase</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="block-footer-widget">
+                                <h3>About Us</h3>
+                                <ul class="list-unstyled">
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Careers</a></li>
+                                    <li><a href="#">Terms of Service</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul>
+                            </div>
+                        </div> *@
+
+                        <div class="col-md-3">
+                            <div class="block-footer-widget">
+                                <h3>Connect With Us</h3>
+                                <ul class="list-unstyled block-social">
+                                    <li><a href="#" class="p-1"><span class="icon-facebook-square"></span></a></li>
+                                    <li><a href="#" class="p-1"><span class="icon-twitter"></span></a></li>
+                                    <li><a href="#" class="p-1"><span class="icon-github"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> <!-- .row -->
+
+                </div>
+            </div> <!-- .row -->
+
+            <div class="row pt-5 text-center">
+                <div class="col-md-12 text-center">
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>  TaskMate — Built with <i class="text-danger icon-heart" aria-hidden="true"></i> to help you stay productive.
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+            </div> <!-- .row -->
+
+        </div>
+    </footer> <!-- .templateux-footer -->
+    </div> <!-- .js-animsition -->
+
+
+    <script src="~/admin/js/scripts-all.js"></script>
+    <script src="~/admin/js/main.js"></script>
+   /*  @await RenderSectionAsync("Scripts", required: false) */
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

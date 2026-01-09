@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "tasks";
+}
+
+@model IEnumerable<sep_project.Models.Task>
+
+                       
+  <div >
+
+    <h1 style="color:#2C3E50"> Daily Tasks List</h1>
+  </div>
+  <br />
+  <br />
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+       @*  <th scope="col">User_Id</th> *@
+        <th scope="col">Task_Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Deadline</th>
+        <th scope="col">IsCompleted</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        @{
+            int counter = 1;
+        }
+        @if (Model != null){
+        @foreach (var data in Model)
+        {
+            <tr>
+                <td>@counter</td>
+              @*   <td>@data.UserId</td> *@
+                <td>@data.Title</td>
+                <td>@data.Description</td>
+                <td>@data.Deadline.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        <form asp-action="ToggleCompleted" method="post" style="display:inline">
+                            <input type="hidden" name="id" value="@data.Task_Id" />
+                            <button type="submit" class="btn btn-link">
+                                @(data.IsCompleted ? "✅" : "❌")
+                            </button>
+                        </form>
+                    </td>
+
+                <td><a class="btn btn-outline-primary" asp-route-id="@data.Task_Id" asp-action="Edit_task" asp-controller="Home">Edit</a></td>
+                <td><a class="btn btn-outline-danger" data-bs-target="#del_task" data-bs-toggle="modal" data-id="@data.Task_Id" data-title="@data.Title">Delete</a></td>
+            </tr>
+            counter++;
+        }
+        }
+
+    </tbody>
+
+</table>
+
+         
+
+<!-- Del_Task Modal -->
+<div class="modal fade" id="del_task" tabindex="-1" aria-labelledby="deleteTaskLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-action="Delete_Task" asp-controller="Home" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="del_task">Delete Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="taskId" name="id" />
+                    <p>
+                        Are you sure you want to delete the task:
+                        <strong id="Title" class="text-danger"></strong> ?
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+<script>
+        const deleteModal = document.getElementById('del_task');
+    deleteModal.addEventListener('show.bs.modal', event => {
+        const button = event.relatedTarget;
+        const taskId = button.getAttribute('data-id');
+        const taskTitle = button.getAttribute('data-title');
+
+     
+        deleteModal.querySelector('#taskId').value = taskId;
+        deleteModal.querySelector('#Title').textContent = taskTitle;
+    });
+</script>
+}
